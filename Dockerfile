@@ -24,10 +24,11 @@ RUN dpkg --add-architecture i386 \
 		&& apt-get update \
 		&& apt-get install -y --no-install-recommends \
 				wine \
-				winetricks \
 		&& rm -rf /var/lib/apt/lists/*
 
-
+# Use the latest version of winetricks
+RUN curl -SL 'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks' -o /usr/local/bin/winetricks \
+		&& chmod +x /usr/local/bin/winetricks
 
 
 # create or use the volume depending on how container is run
