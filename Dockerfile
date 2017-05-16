@@ -47,9 +47,11 @@ ENV HOME /home/jenkins
 ENV WINEPREFIX /home/jenkins/.wine
 ENV WINEARCH win32
 
+WORKDIR /home/jenkins
+
 RUN echo "alias winegui='wine explorer /desktop=DockerDesktop,1024x768'" > ~/.bash_aliases 
 
-RUN wine wineboot --init \
-		&& /scripts/waitonprocess.sh wineserver 
+# RUN wine wineboot --init \
+# 		&& /scripts/waitonprocess.sh wineserver 
 
 ENTRYPOINT ["/scripts/wine-entrypoint.sh"]
