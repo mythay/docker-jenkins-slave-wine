@@ -6,6 +6,7 @@ MAINTAINER Minglei Hei <mythay@126.com>
 USER root
 # Change to use China mirror, to speed up the apt download speed for test
 # RUN sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list 
+# RUN sed -i 's/http/https/g' /etc/apt/sources.list 
 
 # Install packages required for connecting against X Server
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -24,6 +25,7 @@ RUN dpkg --add-architecture i386 \
 		&& apt-get update \
 		&& apt-get install -y --no-install-recommends \
 				wine \
+				wine32 \
 		&& rm -rf /var/lib/apt/lists/*
 
 # Use the latest version of winetricks
@@ -51,7 +53,7 @@ WORKDIR /home/jenkins
 
 RUN echo "alias winegui='wine explorer /desktop=DockerDesktop,1024x768'" > ~/.bash_aliases 
 
-# RUN wine wineboot --init \
-# 		&& /scripts/waitonprocess.sh wineserver 
+RUN wine wineboot --init \
+		&& /scripts/waitonprocess.sh wineserver 
 
 ENTRYPOINT ["/scripts/wine-entrypoint.sh"]
