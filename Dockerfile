@@ -42,7 +42,7 @@ ENV DISPLAY :0.0
 EXPOSE 5900
 COPY *.sh /scripts/
 RUN chmod +x /scripts/*.sh
-
+RUN chown -R jenkins:jenkins /home/jenkins
 # During startup we need to prepare connection to X11-Server container
 USER jenkins
 ENV HOME /home/jenkins
